@@ -85,11 +85,11 @@ with open(file1,newline='',encoding='utf-8') as f:
 
 total_products = h.__len__()
 
-start_date = datetime.strptime("2017-10-1","%Y-%m-%d")
+start_date = datetime.strptime("2017-1-1","%Y-%m-%d")
 #date = raw_input("enter a date")
 #print(date)
 #start_date = datetime.strptime(date,"%Y-%m-%d")
-end_date = datetime.strptime("2019-11-1","%Y-%m-%d")
+end_date = datetime.strptime("2018-1-1","%Y-%m-%d")
 
 def get_type(product,h,t):
     if h.__contains__(product) and h[product] == t:
@@ -158,16 +158,20 @@ selled_products, missed_type_products = report(start_date,end_date)
 
 print("total products: (%d), selled products: (%d), missed type products: (%d)" %(total_products,selled_products,missed_type_products))
 
+count = 1
 for i in types:
     print("")
-    print("type (%s)" %i)
+    print("%d type (%s)" %(count,i))
+    count += 1
     selled_products, missed_type_products = report(start_date, end_date,i,'')
 
     print("total products: (%d), selled products: (%d), missed type products: (%d)" % (total_products, selled_products, missed_type_products))
 
+count = 1
 for i in h.keys():
     print("")
-    print("product (%s)" % i)
+    print("%d product (%s)" % (count,i))
+    count += 1
     selled_products, missed_type_products = report(start_date, end_date, '',i)
 
     print("total products: (%d), selled products: (%d), missed type products: (%d)" % ( total_products, selled_products, missed_type_products))
