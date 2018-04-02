@@ -34,7 +34,38 @@ def proc(path,file_name):
 
         f.writelines('</html>')
 
+
+def proc1(path,file_name):
+    with open(path+file_name + '.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    with open(path + '/all.txt', 'a+', encoding='utf-8') as f:
+        #f.writelines('文件名,商品名称,类别,价格,图片,说明,细节文字,细节图片\n')
+        f.write('out_' + file_name + ',')
+        f.write(data['title'].replace(',','，') + ',')
+        f.write(data['leibie'].replace(',','，') + ',')
+        f.write(data['price'] + ',')
+
+        for i in range(1,11):
+            #print(i)
+            #print(data)
+            if data['images'] != [] and data['images'][0]['img'+str(i)] != '':
+                f.write(data['images'][0]['img'+str(i)] + ';')
+        f.write(',')
+        f.write(data['desc'].replace('\n','').replace(',','，') + ',')
+        f.write(data['detail1'].replace('\n','').replace(',','，') + ',')
+        if data['detail2'] != []:
+            for i in range(1, 11):
+                if data['detail2'][0]['img'+str(i)] != '':
+                    f.write(data['detail2'][0]['img'+str(i)] + ';')
+
+        f.writelines('\n')
+
 path = 'C:/Users/williamchen/PycharmProjects/untitled/product/'
+
+with open(path + '/all.txt', 'w', encoding='utf-8') as f:
+    f.writelines('文件名,商品名称,类别,价格,图片,说明,细节文字,细节图片\n')
+
 for name in os.listdir(path):
     if os.path.isfile(path+name):
         #print(name)
@@ -43,4 +74,6 @@ for name in os.listdir(path):
             print(n)
             os.system(n)
             time.sleep(1)
-            proc(path,name)
+            #proc(path,name)
+            proc1(path, name)
+            #exit()
